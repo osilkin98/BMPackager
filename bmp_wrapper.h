@@ -81,6 +81,7 @@ typedef struct {
 
 
 
+BitmapImage *create_bitmap_image(const char *in_fname, const char *out_fname);
 
 int write_bitmap_image(BitmapImage *data);
 
