@@ -1,11 +1,9 @@
 #ifndef BINARY_BMP_WRAPPER_H
 #define BINARY_BMP_WRAPPER_H
 
+/* for using universal definitions of fixed length variables */
 #include <stdint.h>
 
-
-#define BMAP_HEADER_SIZE 14           /* Length of the main header in bytes */
-#define BMAP_INFO_HEADER_SIZE 40      /* Length of the info header in bytes */
 
 
 #define FOUR_BYTES uint32_t /* for 4-Byte long descriptors */
