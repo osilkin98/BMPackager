@@ -1,8 +1,9 @@
 #ifndef BINARY_BMP_WRAPPER_H
 #define BINARY_BMP_WRAPPER_H
 
-/* for using universal definitions of fixed length variables */
-#include <stdint.h>
+
+#include <stdint.h> /* uses universal definitions of fixed length variables */
+#include <stdio.h> /* includes the definition of the FILE struct */
 
 
 
@@ -12,7 +13,7 @@
 
 
 /* struct to contain the headers for the bitmap */
-struct BMapHeader {
+typedef struct {
 
   /* this is the only variable which will actually differ */
   FOUR_BYTES file_size;
@@ -25,13 +26,13 @@ struct BMapHeader {
   /* the offset for the data will be the sum 
      of the size of both headers in bytes */
   const FOUR_BYTES data_offset;
-};
+} BMapHeader;
 
 
 /* this is the meta-data header, which defines values necessary
    to be rendered correctly as a BMP file. 
 */
-struct BMapInfoHeader {
+typedef struct  {
   /* this is the total size, in bytes, */
   const FOUR_BYTES size;
 
@@ -60,20 +61,32 @@ struct BMapInfoHeader {
    * however I'm unsure if compression would corrupt the executable 
    * being transported by the bitmap image
    */
-};
-
-
-
+} BMapInfoHeader;
 
 
 /* color table is not something that will be included, as the number
    of bits per pixels will ALWAYS be greater than or equal to 8.
 */
 
-struct BitmapImage {
+typedef struct {
   
+  BMapHeader main_header;       /* This is the main header that we'll also need to write */
+  
+  BMapInfoHeader header_info;   /* This is the header information about the file */
+  
+  FILE *binary_file;            /* This is what we want to encode */
 
-};
+  char *fname;                  /* The name of the file we want to be saving the "image" as */
+} BitmapImage;
+
+
+
+
+int write_bitmap_image(BitmapImage *data);
+
+
+/* Returns a non-zero integer as an error code */
+int encode_binary_as_image(const char *input_fname, const char *output_fname);
 
 
 #endif
