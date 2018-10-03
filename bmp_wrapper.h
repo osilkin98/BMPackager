@@ -1,0 +1,5 @@
+#ifndef BINARY_BMP_WRAPPER_H
+#define BINARY_BMP_WRAPPER_H
+
+
+#endif
